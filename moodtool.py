@@ -1,6 +1,7 @@
 import streamlit as st
 import google.auth as ga
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 # Magic constants here
 sheet_id = "1rs37GT6bir0W5Qs9Wqd51Dd5ZJlulnTGmTGfUk5RzfA"
@@ -9,7 +10,8 @@ mood_send = ""
 
 
 # goog api sender
-def send_data(mood):
+def append_values(spreadsheet_id, range_name, value_input_option, _values):
+# def send_data(mood):
     creds, _ = ga.default()
     try:
         service = build("sheets", "v4", credentials=creds)
@@ -25,7 +27,7 @@ def send_data(mood):
             service.spreadsheets()
             .values()
             .append(
-                spreadsheetId=sheet_id,
+                spreadsheetId=spreadsheet_id,
                 range=range_name,
                 valueInputOption=value_input_option,
                 body=body,
@@ -53,5 +55,11 @@ if st.button("button2"):
     mood_send = "sad"
 
 if st.button("submit button"):
-    st.write(mood_send)
+    # st.write(mood_send)
+    append_values(
+      sheet_id,
+      "A1:C2",
+      "USER_ENTERED",
+      [["F", "B"], ["C", "D"]],
+  )
 
