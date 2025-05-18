@@ -55,7 +55,8 @@ if st.button("button2"):
     mood_send = "sad"
 
 if st.button("submit button"):
-    # st.write(mood_send)
+    st.write("sending thing")
+    st.write(mood_send)
     append_values(
       sheet_id,
       "A1:C2",
